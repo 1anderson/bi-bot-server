@@ -5,10 +5,11 @@
     "username": "bibot",
     "password": "bibot",
     "database": "bibotDB",
-    "entities": ["dist/entity/**/*.ts"],
+    "entities": ["dist/src/entities/**/*.ts"],
     "synchronize": true,
-    "migrations": ["migration/*.ts"],
+    "migrations": ["dist/migration/*.ts"],
     "cli": {
-      "migrationsDir": "migration"
+      "migrationsDir": "migration",
+      "entitiesDir": "src/entities"
     }
   }
