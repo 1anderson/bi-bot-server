@@ -1,0 +1,14 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "bibot",
+    "password": "bibot",
+    "database": "bibotDB",
+    "entities": ["dist/entity/**/*.ts"],
+    "synchronize": true,
+    "migrations": ["migration/*.ts"],
+    "cli": {
+      "migrationsDir": "migration"
+    }
+  }
