@@ -5,9 +5,9 @@
     "username": "bibot",
     "password": "bibot",
     "database": "bibotDB",
-    "entities": ["dist/src/entities/**/*.ts"],
+    "entities": ["dist/src/entities/**/*.js"],
     "synchronize": true,
-    "migrations": ["dist/migration/*.ts"],
+    "migrations": ["migration/*.js"],
     "cli": {
       "migrationsDir": "migration",
       "entitiesDir": "src/entities"

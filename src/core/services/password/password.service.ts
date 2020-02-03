@@ -4,17 +4,11 @@ import bcrypt = require('bcryptjs');
 @Injectable()
 export class PasswordService {
 
-    generatedHash(password, salt) {
-        return new Promise((resolve, reject) => {
-            bcrypt.genSalt(salt, function (err, salt) {
-                bcrypt.hash(password, salt, function (err, hash) {
-                    resolve(hash);
-                });
-            });
-        });
+    async generatedHash(password, salt: any) {
+        const SaltGenerate = await bcrypt.genSaltSync(salt);
+        return await bcrypt.hashSync(password, SaltGenerate);
     }
 
-    comparingPasswordHash(hashOne, hashTwo) {
-        return bcrypt.compare(hashOne, hashTwo);
-    }
+    comparingPasswordHash = async (hashOne, hashTwo) => await bcrypt.compare(hashOne, hashTwo);
 }
+
