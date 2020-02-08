@@ -22,7 +22,7 @@ export class EmailService {
                 to: email, // list of receivers
                 subject: 'Confirmation Register ✔', // Subject line
                 //text: email_confirmation_token, // plain text body
-                html: `<p>Click  para ativar a sua conta: http://localhost:3000/user/registration-confirmation/${EmailConfirmToken}</p>` // html body
+                html: `<p>Click  para ativar a sua conta: http://localhost:3000/user/email-confirmation/${EmailConfirmToken}</p>` // html body
             };
 
             // send mail with defined transport object

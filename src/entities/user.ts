@@ -24,4 +24,8 @@ export class User {
     @Expose({ groups: ["creation"] })
     @Column('varchar', { length: 255, nullable:true })
     passwordReminderToken?: boolean;
+
+    @Expose({ groups: ["creation"] })
+    @Column('varchar', { length: 255, nullable:false })
+    confirmEmailToken: string;
 }
