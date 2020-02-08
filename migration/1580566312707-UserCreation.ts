@@ -32,6 +32,11 @@ export class UserCreation1580566312707 implements MigrationInterface {
                     name: "passwordReminderToken",
                     type: "varchar(255)",
                     isNullable: true
+                },
+                {
+                    name: "confirmEmailToken",
+                    type: "varchar(255)",
+                    isNullable: false
                 }
 
                 

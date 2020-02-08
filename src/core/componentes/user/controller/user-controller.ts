@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import CreateUserDTO from '../dto/create-user-dto';
 import { UserService } from '../services/user/user.service';
 import  ViewUserDTO  from '../dto/view-user-dto';
@@ -14,5 +14,13 @@ export class UserController {
         const saveUser = await this.userService.createUser(user);
         return await this.classTransformService.getEntity(ViewUserDTO, saveUser);
     }
+
+    @Get('email-confirmation/:token')
+    async emailConfimation(@Param() params) {
+        console.log(params);
+        
+       // return await this.classTransformService.getEntity(ViewUserDTO, saveUser);
+    }
+   
 
 }
