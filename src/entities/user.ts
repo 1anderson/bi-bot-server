@@ -6,13 +6,14 @@ export class User {
 
     @PrimaryGeneratedColumn()
     id?: number;
-
-    @Column('varchar', { length: 30 })
-    name: string;
-
+    
     @Expose({ groups: ["creation"] })
     @Column('varchar', { length: 255 })
     password: string;
+
+    @Expose({ groups: ["creation"] })
+    @Column('varchar', { length: 255 })
+    login: string;
 
     @Column('varchar', { length: 255,unique: true } )
     email: string;

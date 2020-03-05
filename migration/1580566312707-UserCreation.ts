@@ -12,7 +12,7 @@ export class UserCreation1580566312707 implements MigrationInterface {
                     isPrimary: true,
                 },
                 {
-                    name: "name",
+                    name: "login",
                     type: "varchar(30)",
                 },
                 {
