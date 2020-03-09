@@ -1,11 +1,14 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { MatchDTO } from '../../dto/match-dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { DemoReaderService } from 'src/core/services/demo-reader/demo-reader.service';
 
 @Controller('match')
 export class MatchController {
-
+  constructor(readonly demoReaderService: DemoReaderService) {}
   @Post()
-  async createUser(@Body() matchDTO: MatchDTO): Promise<any> {
-    console.log(matchDTO);
+  @UseInterceptors(FileInterceptor('file'))
+  async createUser(@UploadedFile() file, @Body() matchDTO: MatchDTO): Promise<any> {
+    await this.demoReaderService.readDemo(file.buffer);
   }
 }
