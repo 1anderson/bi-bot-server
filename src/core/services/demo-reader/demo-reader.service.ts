@@ -59,12 +59,48 @@ export class DemoReaderService {
       throw error;
     }
  } 
+
+ csgo() {
+  const Steam = require('steam'),
+  steamClient = new Steam.SteamClient(),
+  steamUser = new Steam.SteamUser(steamClient),
+  steamGC = new Steam.SteamGameCoordinator(steamClient, 730),
+  csgo = require('csgo'),
+  CSGOCli = new csgo.CSGOClient(steamUser, steamGC, false);
+  let decoder = new csgo.SharecodeDecoder("CSGO-4H4Xd-n4h98-JXoqH-TnPxL-zwJoD");
+  steamClient.connect();
+  steamClient.on('connected', function() {
+    steamUser.logOn({
+      account_name: '',
+      password: '#',
+      two_factor_code  :"",
+    });
+  });
+  steamClient.on('logOnResponse', function(response) {
+    console.log(response, Steam.EResult.OK)
+    console.log("logou");
+    CSGOCli.launch();
+
+    CSGOCli.on("ready", function() {
+      console.log("is Ready");
+      console.log(decoder.decode())
+      const d = decoder.decode();
+      // CSGOCli.requestRecentGames();
+      CSGOCli.requestGame(d.matchId, d.outcomeId, parseInt(d.tokenId));
+    })
+
+    CSGOCli.on("matchList",  function(data) {
+      console.log("Match List");
+      console.log(data)
+                   if (data.matches && data.matches.length > 0) {
+                        console.log("matches--------------------------------------------> ",data.matches[0].roundstatsall[data.matches[0].roundstatsall.length -1]);
+                   }
+    })
+  }, err=>{
+    console.log("err", err)
+  });
+ }
  
 }
-steam://rungame/730/76561202255233023/+csgo_download_match%20CSGO-K4HpG-ccbJ2-W754H-ZMQNj-ps68F
-steam://rungame/730/76561202255233023/+csgo_download_match%20CSGO-T3xB8-7m2EY-yHny3-oAmLo-6CQqJ
-steam://rungame/730/76561202255233023/+csgo_download_match%20CSGO-r2hQq-4dGDb-sSCjm-v3yhk-2h3RG
-
-steam://rungame/730/76561202255233023/+csgo_download_match%20CSGO-4H4Xd-n4h98-JXoqH-TnPxL-zwJoD
-
-steam://rungame/730/76561202255233023/+csgo_download_match%20CSGO-rQyEq-qULyP-pCzzc-8cwRr-F4hCG
+// steam://rungame/730/76561202255233023/+csgo_download_match%20CSGO-4H4Xd-n4h98-JXoqH-TnPxL-zwJoD
+http://replay202.valve.net/730/003400827943323173032_1163731017.dem.bz2
