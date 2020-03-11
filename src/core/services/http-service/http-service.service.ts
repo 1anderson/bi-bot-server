@@ -1,27 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import http = require('http');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const axios = require('axios');
 
 @Injectable()
 export class HttpServiceService {
  
-  get(url: string) {
-    return new Promise(( resolve, reject ) => {
-      const req = http.get(url);
-      console.log("url--->", url)
-      req.on('end', (data) => {
-          resolve(data); 
-          console.log(data);
-      });
-
-      req.on('data', (data) => {
-        console.log(data);
-    });
-      
-      req.on('error', (err) => {
-          console.log(err);
-          reject(err);
-      });    
-    }); 
+  async get(url: string) {
+      const response =  await axios.get(url);
+      console.log(response);
+      return response;
   }
 }
 

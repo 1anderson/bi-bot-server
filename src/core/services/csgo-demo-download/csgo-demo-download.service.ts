@@ -9,7 +9,9 @@ export class CsgoDemoDownloadService {
   constructor(readonly httpServiceService: HttpServiceService){}
 
   regexSharedCode = /CSGO.*/;
-  demoDownload = async (matchDTO: MatchDTO) => await this.httpServiceService.get(matchDTO.demoLink);
+  async demoDownload(matchDTO: MatchDTO) {
+    return await this.httpServiceService.get(matchDTO.demoLink);
+  }
 
   getSharedCode(sharedDemoLink: string) {
     return sharedDemoLink.match(this.regexSharedCode)[0];
