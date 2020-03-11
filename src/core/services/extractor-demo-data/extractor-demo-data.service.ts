@@ -22,7 +22,7 @@ export class ExtractorDemoDataService {
     const mvp = demoFile.entities.getByUserId(replayData.userid);
     this.playerScore.addMvp(this.playerDataExtractor.extractMvp(mvp));
   }
-
-  getPlayerScore = () => this.playerScore;
+  
+  getPlayerScore = () => this.playerScore.getScore();
 
 }

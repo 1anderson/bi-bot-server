@@ -1,16 +1,16 @@
 export class PlayerScore {
   deaths = 0;
-  kils = 0;
+  kills = 0;
   headShotCount = 0;
   mvp = 0;
   assister = 0;
 
   addkill(killNumber: number) {
-    this.kils += killNumber;
+    this.kills += killNumber;
   }
 
   getKills() {
-    return this.kils;
+    return this.kills;
   }
 
   addDeath(deathNumber: number) {
@@ -43,6 +43,16 @@ export class PlayerScore {
  
   assistance() {
     return this.assister;
+  }
+
+  getScore() {
+    return {
+      deaths: this.deaths,
+      kills: this.kills,
+      headShotCount: this.headShotCount,
+      mvp: this.mvp,
+      assister: this.assister
+    };
   }
 
 }

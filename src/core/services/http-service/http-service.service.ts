@@ -1,19 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import https = require('https');
+import http = require('http');
 
 @Injectable()
 export class HttpServiceService {
  
   get(url: string) {
-    return new Promise(resolve => {
-      https.request(url)
-        .on('end', (data) => {
+    return new Promise(( resolve, reject ) => {
+      const req = http.get(url);
+      console.log("url--->", url)
+      req.on('end', (data) => {
           resolve(data); 
-        }).on('err', (err) => {
-          throw new Error(err);
-        });    
-    })
+          console.log(data);
+      });
+
+      req.on('data', (data) => {
+        console.log(data);
+    });
+      
+      req.on('error', (err) => {
+          console.log(err);
+          reject(err);
+      });    
+    }); 
   }
-
-
 }
+
+

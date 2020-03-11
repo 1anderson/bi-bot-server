@@ -9,12 +9,12 @@ import { MatchModule } from './componentes/demo/match.module';
 import { ExtractorDemoDataService } from './services/extractor-demo-data/extractor-demo-data.service';
 import { HttpServiceService } from './services/http-service/http-service.service';
 import { FileService } from './services/file/file.service';
-import { DemoFacadeService } from './facade/demo-facade/demo-facade.service';
+import { CsgoDemoDownloadService } from './services/csgo-demo-download/csgo-demo-download.service';
 
 @Module({
     imports: [ UserModule, MatchModule, MulterModule.register({ dest: 'files/'}) ],
     
-    providers: [ PasswordService, EmailService, DatabaseService, ClassTransformService, ExtractorDemoDataService, HttpServiceService, FileService, DemoFacadeService],
-    exports: [ DatabaseService, PasswordService, ClassTransformService, ExtractorDemoDataService, HttpServiceService, FileService, DemoFacadeService ]
+    providers: [ PasswordService, EmailService, DatabaseService, ClassTransformService, ExtractorDemoDataService, HttpServiceService, FileService, CsgoDemoDownloadService],
+    exports: [ DatabaseService, PasswordService, ClassTransformService, ExtractorDemoDataService, HttpServiceService, FileService, CsgoDemoDownloadService ]
 })
 export class CoreModule {}

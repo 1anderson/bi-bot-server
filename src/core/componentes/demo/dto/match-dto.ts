@@ -1,4 +1,4 @@
 export class MatchDTO {
-    DemoLink: string;
+    demoLink: string;
     playerName: string;  
 }

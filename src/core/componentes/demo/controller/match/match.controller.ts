@@ -9,6 +9,7 @@ export class MatchController {
   @Post()
   @UseInterceptors(FileInterceptor('file'))
   async createUser(@UploadedFile() file, @Body() matchDTO: MatchDTO): Promise<any> {
+    console.log("controller", matchDTO);
     return await this.demoFacadeService.createMatch(matchDTO);
   }
 }
