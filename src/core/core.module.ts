@@ -7,11 +7,14 @@ import { ClassTransformService } from './services/class-transform/class-transfor
 import { MulterModule } from '@nestjs/platform-express';
 import { MatchModule } from './componentes/demo/match.module';
 import { ExtractorDemoDataService } from './services/extractor-demo-data/extractor-demo-data.service';
+import { HttpServiceService } from './services/http-service/http-service.service';
+import { FileService } from './services/file/file.service';
+import { DemoFacadeService } from './facade/demo-facade/demo-facade.service';
 
 @Module({
     imports: [ UserModule, MatchModule, MulterModule.register({ dest: 'files/'}) ],
     
-    providers: [ PasswordService, EmailService, DatabaseService, ClassTransformService, ExtractorDemoDataService],
-    exports: [ DatabaseService, PasswordService, ClassTransformService ]
+    providers: [ PasswordService, EmailService, DatabaseService, ClassTransformService, ExtractorDemoDataService, HttpServiceService, FileService, DemoFacadeService],
+    exports: [ DatabaseService, PasswordService, ClassTransformService, ExtractorDemoDataService, HttpServiceService, FileService, DemoFacadeService ]
 })
 export class CoreModule {}
