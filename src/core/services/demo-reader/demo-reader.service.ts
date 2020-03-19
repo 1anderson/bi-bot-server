@@ -15,7 +15,6 @@ export class DemoReaderService {
   csgoMap = '';
   async readDemo(demoPath: string) {
     const buffer = await fs.readFile(demoPath);
-    
     return new Promise(( resolve, reject ) => {
       
       const demoFile = new demofile.DemoFile();
@@ -31,6 +30,7 @@ export class DemoReaderService {
       });
          
       demoFile.on('start', () => {
+        console.log("start", demoFile.header.mapName)
         this.csgoMap = demoFile.header.mapName
       });
          
@@ -38,7 +38,9 @@ export class DemoReaderService {
         this.matchStart = true;
       });
         
-      demoFile.gameEvents.on('cs_win_panel_match', () =>{
+      demoFile.gameEvents.on('cs_win_panel_match', () => {
+        console.log("cs_win_panel_match")
+        console.log(this.extractorDemoDataService.getPlayerScore(), this.csgoMap)
         resolve(new DemoData(this.extractorDemoDataService.getPlayerScore(), this.csgoMap));     
       });
          

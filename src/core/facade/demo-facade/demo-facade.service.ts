@@ -11,9 +11,8 @@ export class DemoFacadeService {
     async createMatch(matchDTO: MatchDTO) {
       try {
        const response = await this.csgoDemoDownloadService.demoDownload(matchDTO);
-       
-        // await this.fileService.saveFile(matchDTO.demoLink, this.filePath);
-        //const demoData = await this.demoReaderService.readDemo(this.filePath);      
+       await this.fileService.saveFile(response.data);
+       return await this.demoReaderService.readDemo('temp.dem');
       } catch (err) {
          console.log(err) 
       }
