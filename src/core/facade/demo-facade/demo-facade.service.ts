@@ -7,11 +7,12 @@ import { FileService } from 'src/core/services/file/file.service';
 @Injectable()
 export class DemoFacadeService {
     constructor(readonly demoReaderService: DemoReaderService, readonly csgoDemoDownloadService: CsgoDemoDownloadService, readonly fileService: FileService){}
-    filePath = 'demo'
+    regexFileId = /730\/(.*?)\.dem/;
     async createMatch(matchDTO: MatchDTO) {
       try {
-       //await this.csgoDemoDownloadService.demoDownload(matchDTO);
-       //await this.fileService.saveFile({});
+        const fileId = matchDTO.demoLink.match(this.regexFileId);
+       const filePath = await this.csgoDemoDownloadService.demoDownload(matchDTO, fileId[1]);
+       await this.fileService.decompressFile(filePath);
        return await this.demoReaderService.readDemo('tempC.dem');
       } catch (err) {
          console.log(err) 

@@ -5,8 +5,8 @@ import Bunzip = require('seek-bzip');
 @Injectable()
 export class FileService {
     
-    async saveFile(response: any) {
-        const compressedData = fs.readFileSync('tempC.dem.bz2');
+    async decompressFile(filePath: any) {
+        const compressedData = fs.readFileSync(filePath);
         const data = Bunzip.decode(compressedData);
         
         fs.writeFileSync('tempC.dem', data);

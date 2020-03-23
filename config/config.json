@@ -1,0 +1,7 @@
+{ 
+  "fileConfig": {
+    "tempFilesPath": "temp/",
+    "compressedFileExtension": ".bz2",
+    "decompressedFileExtension": ".dem"
+  }
+}

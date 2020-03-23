@@ -14,7 +14,7 @@ export class DemoReaderService {
 
   matchStart = false;
   async readDemo(demoPath: string) {
-    const playerScore = new PlayerScore();
+    const playerScore = new PlayerScore('');
 
     const buffer = await fs.readFile(demoPath);
     return new Promise(( resolve, reject ) => {
@@ -27,7 +27,7 @@ export class DemoReaderService {
         
       demoFile.gameEvents.on("player_death", (e: any) => {
         if(this.matchStart) {
-            this.extractorDemoDataService.extractPlayerScore(e, demoFile);
+            this.extractorDemoDataService.extractPlayerScore(e, demoFile, '');
         }
       });
          
