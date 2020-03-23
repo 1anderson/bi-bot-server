@@ -4,11 +4,16 @@ export class PlayerScore {
   headShotCount = 0;
   mvp = 0;
   assister = 0;
+  playerName = '';
+
+  constructor(playerName: string) { 
+    this.playerName = playerName;
+  }
 
   addkill(killNumber: number) {
     this.kills += killNumber;
   }
-
+  
   getKills() {
     return this.kills;
   }
@@ -54,5 +59,4 @@ export class PlayerScore {
       assister: this.assister
     };
   }
-
 }

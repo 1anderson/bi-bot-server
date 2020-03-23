@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import fs = require('fs-extra');
-import { decompress } from 'bz2';
+import Bunzip = require('seek-bzip');
 
 @Injectable()
 export class FileService {
-
+    
     async saveFile(response: any) {
-        //const teste = await decompress(response);
-        return await fs.writeFile('temp.dem', response);
+        const compressedData = fs.readFileSync('tempC.dem.bz2');
+        const data = Bunzip.decode(compressedData);
+        
+        fs.writeFileSync('tempC.dem', data);
     }
 }
 

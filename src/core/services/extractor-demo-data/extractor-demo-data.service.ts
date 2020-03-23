@@ -8,14 +8,14 @@ export class ExtractorDemoDataService {
   playerScore = new PlayerScore();
   constructor(private readonly playerDataExtractor: ExtractorPlayerDataService){}
 
-  extractPlayerScore(replayData: any, demoFile: any) {
+  extractPlayerScore(replayData: any, demoFile: any, playerName: string) {
     const attacker = demoFile.entities.getByUserId(replayData.attacker);
     const victim = demoFile.entities.getByUserId(replayData.userid);
     const assister = demoFile.entities.getByUserId(replayData.assister);
-    this.playerScore.addkill(this.playerDataExtractor.extractKill(attacker));
-    this.playerScore.addDeath(this.playerDataExtractor.extractDeath(victim));
-    this.playerScore.addHeadShotCount(this.playerDataExtractor.extractHS(replayData.headshot, attacker));
-    this.playerScore.addAssister(this.playerDataExtractor.extractAssistance(assister));
+    this.playerScore.addkill(this.playerDataExtractor.extractKill(attacker, playerName));
+    this.playerScore.addDeath(this.playerDataExtractor.extractDeath(victim, playerName));
+    this.playerScore.addHeadShotCount(this.playerDataExtractor.extractHS(replayData.headshot, attacker, playerName));
+    this.playerScore.addAssister(this.playerDataExtractor.extractAssistance(assister, playerName));
   }
 
   extractMVP(replayData: any, demoFile: any) {

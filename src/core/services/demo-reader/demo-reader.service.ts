@@ -3,6 +3,7 @@ import { ExtractorDemoDataService } from '../extractor-demo-data/extractor-demo-
 
 import fs = require('fs-extra');
 import { DemoData } from 'src/shared/class/demo-data';
+import { PlayerScore } from 'src/shared/models/player-score';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const demofile = require("demofile");
 
@@ -10,15 +11,16 @@ const demofile = require("demofile");
 export class DemoReaderService {
 
   constructor(private readonly extractorDemoDataService: ExtractorDemoDataService){}
-  
+
   matchStart = false;
-  csgoMap = '';
   async readDemo(demoPath: string) {
+    const playerScore = new PlayerScore();
+
     const buffer = await fs.readFile(demoPath);
     return new Promise(( resolve, reject ) => {
-      
       const demoFile = new demofile.DemoFile();
       demoFile.parse(buffer);
+      
       demoFile.gameEvents.on('round_mvp', (data: any) => {
           this.extractorDemoDataService.extractMVP(data, demoFile);
       });
@@ -29,19 +31,15 @@ export class DemoReaderService {
         }
       });
          
-      demoFile.on('start', () => {
-        console.log("start", demoFile.header.mapName)
-        this.csgoMap = demoFile.header.mapName
-      });
-         
       demoFile.gameEvents.on('round_announce_match_start', () => {
+        console.log("round_announce_match_start")
         this.matchStart = true;
       });
         
       demoFile.gameEvents.on('cs_win_panel_match', () => {
         console.log("cs_win_panel_match")
-        console.log(this.extractorDemoDataService.getPlayerScore(), this.csgoMap)
-        resolve(new DemoData(this.extractorDemoDataService.getPlayerScore(), this.csgoMap));     
+        console.log(this.extractorDemoDataService.getPlayerScore(), demoFile.header.mapName)
+        resolve(new DemoData(this.extractorDemoDataService.getPlayerScore(), demoFile.header.mapName));     
       });
          
      })
