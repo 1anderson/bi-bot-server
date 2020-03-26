@@ -7,11 +7,12 @@ import { DemoFacadeService } from 'src/core/facade/demo-facade/demo-facade.servi
 import { HttpServiceService } from 'src/core/services/http-service/http-service.service';
 import { FileService } from 'src/core/services/file/file.service';
 import { CsgoDemoDownloadService } from 'src/core/services/csgo-demo-download/csgo-demo-download.service';
+import { ConfigService } from 'src/core/services/config/config.service';
 
 @Module({ 
     imports: [],
     controllers: [ MatchController ],
-    providers: [ DemoReaderService , ExtractorDemoDataService, ExtractorPlayerDataService, DemoFacadeService, HttpServiceService, FileService, CsgoDemoDownloadService ],
-    exports: [ DemoReaderService , ExtractorDemoDataService, ExtractorPlayerDataService, DemoFacadeService, HttpServiceService, FileService, CsgoDemoDownloadService ] 
+    providers: [ DemoReaderService , ExtractorDemoDataService, ExtractorPlayerDataService, DemoFacadeService, HttpServiceService, FileService, CsgoDemoDownloadService, ConfigService ],
+    exports: [ DemoReaderService , ExtractorDemoDataService, ExtractorPlayerDataService, DemoFacadeService, HttpServiceService, FileService, CsgoDemoDownloadService, ConfigService ] 
 })
 export class MatchModule {}
