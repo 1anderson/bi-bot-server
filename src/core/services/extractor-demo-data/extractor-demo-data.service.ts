@@ -5,7 +5,7 @@ import { PlayerScore } from 'src/shared/models/player-score';
 
 @Injectable()
 export class ExtractorDemoDataService {
-  playerScore = new PlayerScore('');
+  playerScore = new PlayerScore();
   constructor(private readonly playerDataExtractor: ExtractorPlayerDataService){}
 
   extractPlayerScore(replayData: any, demoFile: any, playerName: string) {
@@ -18,9 +18,9 @@ export class ExtractorDemoDataService {
     this.playerScore.addAssister(this.playerDataExtractor.extractAssistance(assister, playerName));
   }
 
-  extractMVP(replayData: any, demoFile: any) {
+  extractMVP(replayData: any, demoFile: any, playerName: string) {
     const mvp = demoFile.entities.getByUserId(replayData.userid);
-    this.playerScore.addMvp(this.playerDataExtractor.extractMvp(mvp,''));
+    this.playerScore.addMvp(this.playerDataExtractor.extractMvp(mvp, playerName));
   }
   
   getPlayerScore = () => this.playerScore.getScore();

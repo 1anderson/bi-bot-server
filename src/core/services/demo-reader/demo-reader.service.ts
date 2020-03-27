@@ -3,7 +3,7 @@ import { ExtractorDemoDataService } from '../extractor-demo-data/extractor-demo-
 
 import fs = require('fs-extra');
 import { DemoData } from 'src/shared/class/demo-data';
-import { PlayerScore } from 'src/shared/models/player-score';
+import { MatchDTO } from 'src/core/componentes/demo/dto/match-dto';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const demofile = require("demofile");
 
@@ -13,21 +13,19 @@ export class DemoReaderService {
   constructor(private readonly extractorDemoDataService: ExtractorDemoDataService){}
 
   matchStart = false;
-  async readDemo(demoPath: string) {
-    const playerScore = new PlayerScore('');
-
+  async readDemo(matchDTO: MatchDTO, demoPath: string) {
     const buffer = await fs.readFile(demoPath);
     return new Promise(( resolve, reject ) => {
       const demoFile = new demofile.DemoFile();
       demoFile.parse(buffer);
       
       demoFile.gameEvents.on('round_mvp', (data: any) => {
-          this.extractorDemoDataService.extractMVP(data, demoFile);
+          this.extractorDemoDataService.extractMVP(data, demoFile, matchDTO.playerName);
       });
         
       demoFile.gameEvents.on("player_death", (e: any) => {
         if(this.matchStart) {
-            this.extractorDemoDataService.extractPlayerScore(e, demoFile, '');
+            this.extractorDemoDataService.extractPlayerScore(e, demoFile, matchDTO.playerName);
         }
       });
          

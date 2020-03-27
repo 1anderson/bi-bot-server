@@ -15,7 +15,7 @@ export class DemoFacadeService {
         const pathsfiles = this.configService.getPathsFiles(fileId[1]);
         await this.csgoDemoDownloadService.demoDownload(matchDTO, pathsfiles.compressedFile);
         await this.fileService.decompressFile(pathsfiles);
-        //return await this.demoReaderService.readDemo(pathsfiles.descompressedFile);
+        return await this.demoReaderService.readDemo(matchDTO, pathsfiles.descompressedFile);
       } catch (err) {
          console.log(err) 
       }
