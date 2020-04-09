@@ -29,4 +29,8 @@ export class User {
     @Expose({ groups: ["creation"] })
     @Column('varchar', { length: 255, nullable:false })
     confirmEmailToken: string;
+
+    @Expose({ groups: ["creation"] })
+    @Column('varchar', { length: 18, nullable:false })
+    steamID: string;
 }

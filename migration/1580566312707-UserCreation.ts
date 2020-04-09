@@ -37,9 +37,12 @@ export class UserCreation1580566312707 implements MigrationInterface {
                     name: "confirmEmailToken",
                     type: "varchar(255)",
                     isNullable: false
+                },
+                {
+                    name: "steamID",
+                    type: "varchar(18)",
+                    isNullable: false
                 }
-
-                
             ]
 
         }), true);
