@@ -1,12 +1,12 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
 @Entity()
-export class Map {
-  
+export class Match {
+
   @PrimaryGeneratedColumn()
   private id?: number;
 
   @Column()
-  private name: string;
-
+  private date: Date;
+  
 }
