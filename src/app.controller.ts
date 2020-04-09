@@ -6,7 +6,7 @@ export class AppController {
   constructor(private readonly databaseService: DatabaseService) {}
 
   onApplicationBootstrap() {
-    this.databaseService.initDatabaseConnection();
+    //this.databaseService.initDatabaseConnection();
   }
 
 }

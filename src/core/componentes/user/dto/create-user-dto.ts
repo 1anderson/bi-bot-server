@@ -1,12 +1,11 @@
 export default class UserDTO {
 
-    name: string;
+    login: string;
     email: string;
     password: string;
-    
-    constructor(name: string, password: string, email: string) {
-        this.name = name;
+    constructor(login: string, password: string, email: string) {
         this.password = password;
         this.email = email;
+        this.login = login;
     }
 }

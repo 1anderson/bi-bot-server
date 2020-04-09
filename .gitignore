@@ -390,3 +390,6 @@ Temporary Items
 docker-compose.yml
 .env
 dist
+
+#steam User Data
+steam.json
