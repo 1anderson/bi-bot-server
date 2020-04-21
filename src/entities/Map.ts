@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import { Match } from "./Match";
 
 @Entity()
 export class Map {
@@ -9,4 +10,6 @@ export class Map {
   @Column()
   private name: string;
 
+  @OneToMany(()=> Match, match => match.map)
+  match: Match[];
 }

@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToMany} from "typeorm";
+import { User } from "./user";
 
 @Entity()
 export class Team {
@@ -6,7 +7,9 @@ export class Team {
   @PrimaryGeneratedColumn()
   private id?: number;
 
-  @Column()
+  @Column('varchar', { length: 30 })
   private name: string;
-  
+
+  @OneToMany(() => User, user => user.team)
+  user: User[];
 }
