@@ -1,7 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany} from "typeorm";
 import { Expose } from "class-transformer";
 import { Team } from "./Team";
-import { Match } from "./Match";
 import { PlayerScore } from "./playerScore";
 
 @Entity()
