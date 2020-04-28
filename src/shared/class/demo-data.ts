@@ -1,5 +1,7 @@
+import { PlayerScore } from "../models/player-score";
+
 export class DemoData {
-  private playerData: any
+  private playerData: PlayerScore;
   private mapData: string;
 
   constructor(playerData: any, mapData: string){
@@ -7,4 +9,7 @@ export class DemoData {
     this.mapData = mapData;
   }
   
+  getMapName(): string {
+    return this.mapData;
+  }
 }

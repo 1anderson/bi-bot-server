@@ -7,13 +7,16 @@ export class CreateUserTable1587515991123 implements MigrationInterface {
             name: "user",
             columns: [
                 {
-                    name: "id",
-                    type: "int",
-                    isPrimary: true,
+                  name: "id",
+                  type: "int",
+                  isPrimary: true,
+                  isGenerated: true,
+                  generationStrategy: 'increment' 
                 },
                 {
                     name: "login",
                     type: "varchar(30)",
+                    isUnique: true
                 },
                 {
                     name: "password",
@@ -22,6 +25,7 @@ export class CreateUserTable1587515991123 implements MigrationInterface {
                 {
                     name: "email",
                     type: "varchar(255)",
+                    isUnique: true
                 },
                 {
                     name: "activeAccount",
@@ -41,7 +45,8 @@ export class CreateUserTable1587515991123 implements MigrationInterface {
                 {
                     name: "steamID",
                     type: "varchar(18)",
-                    isNullable: false
+                    isNullable: false,
+                    isUnique: true
                 }
             ]
 

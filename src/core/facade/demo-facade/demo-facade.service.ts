@@ -4,10 +4,12 @@ import { DemoReaderService } from 'src/core/services/demo-reader/demo-reader.ser
 import { CsgoDemoDownloadService } from 'src/core/services/csgo-demo-download/csgo-demo-download.service';
 import { FileService } from 'src/core/services/file/file.service';
 import { ConfigService } from 'src/core/services/config/config.service';
+import { MatchService } from 'src/core/componentes/match/services/match.service';
 
 @Injectable()
 export class DemoFacadeService {
-    constructor(readonly demoReaderService: DemoReaderService, readonly csgoDemoDownloadService: CsgoDemoDownloadService, readonly fileService: FileService, readonly configService: ConfigService){}
+    constructor(readonly demoReaderService: DemoReaderService, readonly csgoDemoDownloadService: CsgoDemoDownloadService, readonly fileService: FileService, readonly configService: ConfigService,
+                readonly matchService: MatchService){}
     regexFileId = /730\/(.*?)\.dem/;
     async createMatch(matchDTO: MatchDTO) {
       try {
@@ -15,7 +17,9 @@ export class DemoFacadeService {
         const pathsfiles = this.configService.getPathsFiles(fileId[1]);
         await this.csgoDemoDownloadService.demoDownload(matchDTO, pathsfiles.compressedFile);
         await this.fileService.decompressFile(pathsfiles);
-        return await this.demoReaderService.readDemo(matchDTO, pathsfiles.descompressedFile);
+        const demodata = await this.demoReaderService.readDemo(matchDTO, pathsfiles.descompressedFile);
+        this.matchService.saveMatch(demodata);
+        
       } catch (err) {
          console.log(err) 
       }

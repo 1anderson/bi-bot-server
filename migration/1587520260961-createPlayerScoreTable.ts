@@ -9,7 +9,9 @@ export class CreatePlayerScoreTable1587520260961 implements MigrationInterface {
               {
                 name: "id",
                 type: "int",
-                isPrimary: true
+                isPrimary: true,
+                isGenerated: true,
+                generationStrategy: 'increment' 
               },
               {
                 name: "kill",

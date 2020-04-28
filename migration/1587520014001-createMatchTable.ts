@@ -9,7 +9,9 @@ export class CreateMatchTable1587520014001 implements MigrationInterface {
               {
                 name: "id",
                 type: "int",
-                isPrimary: true
+                isPrimary: true,
+                isGenerated: true,
+                generationStrategy: 'increment' 
               },
               {
                 name: "date",

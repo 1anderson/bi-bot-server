@@ -9,11 +9,14 @@ export class CreateMapTable1587516070384 implements MigrationInterface {
           {
             name: "id",
             type: "int",
-            isPrimary: true    
+            isPrimary: true,
+            isGenerated: true,
+            generationStrategy: 'increment'     
           },
           {
             name: "name",
-            type: "varchar(30)"
+            type: "varchar(30)",
+            isUnique: true
           }
         ]
       }), true)
