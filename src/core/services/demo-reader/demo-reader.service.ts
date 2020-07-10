@@ -13,9 +13,9 @@ export class DemoReaderService {
   constructor(private readonly extractorDemoDataService: ExtractorDemoDataService){}
 
   matchStart = false;
-  async readDemo(matchDTO: MatchDTO, demoPath: string) {
+  async readDemo(matchDTO: MatchDTO, demoPath: string): Promise<DemoData> {
     const buffer = await fs.readFile(demoPath);
-    return new Promise(( resolve, reject ) => {
+    return new Promise<DemoData>(( resolve, reject ) => {
       const demoFile = new demofile.DemoFile();
       demoFile.parse(buffer);
       
@@ -35,8 +35,6 @@ export class DemoReaderService {
       });
         
       demoFile.gameEvents.on('cs_win_panel_match', () => {
-        console.log("cs_win_panel_match")
-        console.log(this.extractorDemoDataService.getPlayerScore(), demoFile.header.mapName)
         resolve(new DemoData(this.extractorDemoDataService.getPlayerScore(), demoFile.header.mapName));     
       });
          

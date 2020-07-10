@@ -1,5 +1,7 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany} from "typeorm";
 import { Expose } from "class-transformer";
+import { Team } from "./Team";
+import { PlayerScore } from "./playerScore";
 
 @Entity()
 export class User {
@@ -12,7 +14,7 @@ export class User {
     password: string;
 
     @Expose({ groups: ["creation"] })
-    @Column('varchar', { length: 255 })
+    @Column('varchar', { length: 30 })
     login: string;
 
     @Column('varchar', { length: 255,unique: true } )
@@ -29,4 +31,14 @@ export class User {
     @Expose({ groups: ["creation"] })
     @Column('varchar', { length: 255, nullable:false })
     confirmEmailToken: string;
+
+    @Expose({ groups: ["creation"] })
+    @Column('varchar', { length: 18, nullable:false })
+    steamID: string;
+
+    @ManyToOne(() => Team, team => team.user)
+    team: Team;
+
+    @OneToMany(() => PlayerScore, playerScore => playerScore.user)
+    playerScore: PlayerScore[];
 }

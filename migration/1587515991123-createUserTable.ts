@@ -1,19 +1,22 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class UserCreation1580566312707 implements MigrationInterface {
+export class CreateUserTable1587515991123 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<any> {
         await queryRunner.createTable(new Table({
             name: "user",
             columns: [
                 {
-                    name: "id",
-                    type: "int",
-                    isPrimary: true,
+                  name: "id",
+                  type: "int",
+                  isPrimary: true,
+                  isGenerated: true,
+                  generationStrategy: 'increment' 
                 },
                 {
                     name: "login",
                     type: "varchar(30)",
+                    isUnique: true
                 },
                 {
                     name: "password",
@@ -22,6 +25,7 @@ export class UserCreation1580566312707 implements MigrationInterface {
                 {
                     name: "email",
                     type: "varchar(255)",
+                    isUnique: true
                 },
                 {
                     name: "activeAccount",
@@ -37,9 +41,13 @@ export class UserCreation1580566312707 implements MigrationInterface {
                     name: "confirmEmailToken",
                     type: "varchar(255)",
                     isNullable: false
+                },
+                {
+                    name: "steamID",
+                    type: "varchar(18)",
+                    isNullable: false,
+                    isUnique: true
                 }
-
-                
             ]
 
         }), true);
