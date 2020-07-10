@@ -5,16 +5,15 @@ import { EmailService } from './services/email/email.service';
 import { DatabaseService } from './services/database/database.service';
 import { ClassTransformService } from './services/class-transform/class-transform.service';
 import { MulterModule } from '@nestjs/platform-express';
-import { MatchModule } from './componentes/demo/match.module';
 import { ExtractorDemoDataService } from './services/extractor-demo-data/extractor-demo-data.service';
 import { HttpServiceService } from './services/http-service/http-service.service';
 import { FileService } from './services/file/file.service';
 import { CsgoDemoDownloadService } from './services/csgo-demo-download/csgo-demo-download.service';
+import { ExtractorPlayerDataService } from './services/extractor-player-data/extractor-player-data.service';
 
 @Module({
-    imports: [ UserModule, MatchModule, MulterModule.register({ dest: 'files/'}) ],
-    
-    providers: [ PasswordService, EmailService, DatabaseService, ClassTransformService, ExtractorDemoDataService, HttpServiceService, FileService, CsgoDemoDownloadService],
-    exports: [ DatabaseService, PasswordService, ClassTransformService, ExtractorDemoDataService, HttpServiceService, FileService, CsgoDemoDownloadService ]
+    imports: [ UserModule, MulterModule.register({ dest: 'files/'}) ],
+    providers: [ PasswordService, EmailService, DatabaseService, ClassTransformService, ExtractorDemoDataService, HttpServiceService, FileService, CsgoDemoDownloadService, ExtractorPlayerDataService],
+    exports: [ DatabaseService, PasswordService, ClassTransformService, ExtractorDemoDataService, HttpServiceService, FileService, CsgoDemoDownloadService, ExtractorPlayerDataService]
 })
 export class CoreModule {}
