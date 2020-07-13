@@ -5,6 +5,7 @@ import { PasswordService } from '../../../../services/password/password.service'
 import { EmailService } from 'src/core/services/email/email.service';
 import LoginDTO from '../../dto/login-dto';
 import { ExceptionServiceService } from 'src/core/services/exception-service/exception-service.service';
+import ViewUserDTO from '../../dto/view-user-dto';
 
 
 @Injectable()
@@ -23,24 +24,25 @@ export class UserService {
         return await this.userDao.updateStatusAccount(token);
     }
 
-    async login(loginData: LoginDTO) {
+    async login(loginData: LoginDTO): Promise<ViewUserDTO> {
         const user = await this.getUserByLogin(loginData); 
-        if(!user) {
-            return this.exceptionServiceService.invalidCredentials();
-        }
-        return await user.activeAccount? await this.comparePassword(loginData, user): this.exceptionServiceService.accountNotActive(); 
-    }
-
-    async comparePassword (loginData: LoginDTO, user: User) {
-        const correctPassword = await this.passwordService.comparingPasswordHash(loginData.password, user.password );
-        if(correctPassword) {
-            return "login sucess";
+        if(user && await this.passwordIsEqual(loginData, user)) {
+          if(this.isUserIsActive(user) ) {
+              return this.mapUserToView(user)
+          } else {
+              this.exceptionServiceService.accountNotActive(); 
+          }
         } else {
-            return this.exceptionServiceService.invalidCredentials();
+          this.exceptionServiceService.invalidCredentials();
         }
-        
     }
+    
+    passwordIsEqual = async (loginData: LoginDTO, user: User): Promise<boolean> => await this.passwordService.comparingPasswordHash(loginData.password, user.password );
+       
+    getUserByLogin = async (loginData :LoginDTO ) => await this.userDao.getUser(loginData.login);
 
-    getUserByLogin = async (loginData :LoginDTO ) =>   await this.userDao.getUser(loginData.login);
+    isUserIsActive = (user: User): boolean => user.activeAccount;
+
+    mapUserToView = (user: User): ViewUserDTO => new ViewUserDTO('',1,'');
 
 }

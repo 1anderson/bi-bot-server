@@ -1,4 +1,4 @@
-import { Controller, Get, OnApplicationBootstrap, OnModuleInit  } from '@nestjs/common';
+import { Controller, OnApplicationBootstrap } from '@nestjs/common';
 import { DatabaseService } from './core/services/database/database.service';
 
 @Controller()

@@ -1,14 +1,15 @@
-import { Controller, Get, Post, Body, Param, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query } from '@nestjs/common';
 import CreateUserDTO from '../dto/create-user-dto';
 import { UserService } from '../services/user/user.service';
 import ViewUserDTO from '../dto/view-user-dto';
 import LoginDTO from '../dto/login-dto';
 import { User } from '../../../../entities/user';
 import { ClassTransformService } from 'src/core/services/class-transform/class-transform.service';
+import { AuthService } from 'src/core/services/auth-service/auth-service';
 
 @Controller('user')
 export class UserController {
-    constructor(private readonly userService: UserService, private readonly classTransformService: ClassTransformService) { }
+    constructor(private readonly userService: UserService, private readonly classTransformService: ClassTransformService, private readonly authService: AuthService) { }
     @Post()
     async createUser(@Body() createUserDTO: CreateUserDTO): Promise<ViewUserDTO> {
         const user: User = this.classTransformService.getEntity<User>(User, createUserDTO, { groups: ["creation"] });
@@ -22,7 +23,7 @@ export class UserController {
     }
 
     @Post('login')
-    async login(@Body() login: LoginDTO) {
+    async login(@Body() login: LoginDTO):Promise<ViewUserDTO> {
         return await this.userService.login(login);
     }
 }

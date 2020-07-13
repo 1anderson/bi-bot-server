@@ -6,8 +6,8 @@
     "password": "bibot",
     "database": "bibotDB",
     "entities": ["dist/src/entities/**/*.js"],
-    "synchronize": true,
-    "migrations": ["migration/*.ts"],
+    "synchronize": false,
+    "migrations": ["migration/{*.ts|.js}"],
     "cli": {
       "migrationsDir": "migration",
       "entitiesDir": "src/entities"

@@ -13,7 +13,6 @@ export class UserDao {
     }
 
     async login( loginData: LoginDTO ) {
-        console.log(loginData);
         const loginResult = await getManager().findOne(User, {login: loginData.login})
     }
 
