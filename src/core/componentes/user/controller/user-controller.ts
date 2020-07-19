@@ -1,15 +1,17 @@
-import { Controller, Get, Post, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Query, UseGuards, Req } from '@nestjs/common';
 import CreateUserDTO from '../dto/create-user-dto';
 import { UserService } from '../services/user/user.service';
 import ViewUserDTO from '../dto/view-user-dto';
-import LoginDTO from '../dto/login-dto';
 import { User } from '../../../../entities/user';
 import { ClassTransformService } from 'src/core/services/class-transform/class-transform.service';
-import { AuthService } from 'src/core/services/auth-service/auth-service';
+import { AuthService } from 'src/core/auth/auth-service';
+import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/core/auth/jwt.aut.guard';
 
 @Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService, private readonly classTransformService: ClassTransformService, private readonly authService: AuthService) { }
+    @UseGuards(JwtAuthGuard)
     @Post()
     async createUser(@Body() createUserDTO: CreateUserDTO): Promise<ViewUserDTO> {
         const user: User = this.classTransformService.getEntity<User>(User, createUserDTO, { groups: ["creation"] });
@@ -21,9 +23,10 @@ export class UserController {
     async emailConfimation(@Query() params) {
         return await this.userService.updateStatusAccount(params.token);
     }
-
+    
+    @UseGuards(AuthGuard('local'))
     @Post('login')
-    async login(@Body() login: LoginDTO):Promise<ViewUserDTO> {
-        return await this.userService.login(login);
+    async login(@Req() req) {
+        return this.authService.login(req.user);
     }
 }
